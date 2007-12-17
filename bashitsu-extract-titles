@@ -1,0 +1,3 @@
+#!/bin/bash
+CAPWORD="([A-Z]{1}[-_'a-z]+ ?)"
+grep -Eo "($CAPWORD){2,}"

@@ -1,0 +1,2 @@
+#!/bin/bash
+script session-`date +%y%m%d%H%M%S`.ses

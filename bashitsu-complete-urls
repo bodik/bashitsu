@@ -1,0 +1,6 @@
+#!/bin/bash
+while read URL
+do
+	echo $URL
+	echo $URL/
+done | grep -v "//$" | sort | uniq

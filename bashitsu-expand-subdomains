@@ -1,0 +1,9 @@
+#!/bin/bash
+SUB_DOMAINS="access adm admin administrator beta blog blogs cisco customers db demo dev developers development dhcp directory dmz dns dns0 dns1 dns2 dns3 download ds exchange ext extranet finger forum forums ftp ftp1 ftp2 ftp3 fw fw1 fw2 fw3 gatekeeper gateway gw help hostmaster http https imap internal international internet intl intranet irc login lp lpd mail mailhost manager mgr my named net news nntp ns ns0 ns1 ns2 ns3 ntp ntp0 ntp1 online pop pop3 printer proxy ptr router rtr sales secure sh shell shop smtp ssh support telnet test time vpn web webmail www www2 www3"
+while read DOMAIN
+do
+	for SUB_DOMAIN in $SUB_DOMAINS
+	do
+		echo $SUB_DOMAIN.$DOMAIN
+	done
+done

@@ -1,0 +1,11 @@
+#!/bin/bash
+while read URL
+do
+	OUTPUT=`dirname $URL`
+	if [[ $OUTPUT != "." ]]
+	then
+		echo $URL
+		echo $OUTPUT
+		echo $OUTPUT | $0
+	fi
+done | grep -E "://" | sort | uniq
