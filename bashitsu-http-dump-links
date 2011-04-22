@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# a lynx-based URLs-parser spider. it goes a few levels deep. 
+# yes, you do need 'lynx' for this script to work!
+
+if [[ $# -ne 1 ]]
+then
+        echo "usage: $0 <base-URL>"
+       	echo -en "i.e:\n$0 http://www.targethost.foo\n$0" \
+	"http://www.targethost.foo/home/default.aspx\n" 
+	exit 1
+fi
+
+for i in `lynx -dump $1 | awk '{print $2}' | grep '^http'`
+do
+	echo $i
+	for j in `lynx -dump $i | awk '{print $2}' | grep '^http'`
+	do
+		echo $j
+	done
+done

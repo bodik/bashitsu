@@ -2,9 +2,8 @@
 
 # http_session_timeout_tester
 # a script to help determine the idle session timeout period of a given webapp
+# determines idle session timeout period of a given webapp. works with http and https
 # requires 'curl', 'grep' and 'sleep' to work
-
-# Adrian 'pagvac' Pastor | http://gnucitizen.org
 
 if [[ $# -lt 3 ]]
 then

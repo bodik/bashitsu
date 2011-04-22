@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# generate random IP address(es). number of IPs is piped to it. 
+
+read CYCLES
+
+for ((I = 1; I <= $CYCLES; I++))
+do
+	W=$(($RANDOM % 255))
+	X=$(($RANDOM % 255))
+	Y=$(($RANDOM % 255))
+	Z=$(($RANDOM % 255))
+
+	echo $W.$X.$Y.$Z
+done

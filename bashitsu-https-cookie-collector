@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# a cookie collector for https (SSL/TLS) sites. useful for sampling session IDs 
+# you need 'sslcat' (www.bindshell.net/tools/sslcat)
+# and standard utils such as 'grep' and 'sleep' for this script to work
+# note: [base-url] is the path that will cause the server/webapp return a 'Set-Cookie:' header
+# omit such parameter if you dont know what to do (will default to root dir)
+
+if [[ $# -ne 3 && $# -ne 4 ]] 
+then
+	echo "usage: $0 <host> <port> <number-request> [base-url]"
+	echo "i.e.:"
+	echo "$0 taget-domain.foo 443 100"
+	echo "$0 192.168.1.10 443 100 /login/"	
+	exit 1
+fi
+
+# seconds of delay between requests
+DELAY=1
+
+if [[ $4 ]]
+then 
+	DIR=$4
+else
+	DIR=/
+fi
+
+for((i=0;i<$3;++i))
+do
+	echo -en "HEAD $DIR HTTP/1.1\nHost: $1\nConnection: close\n\n" | sslcat -3 $1 $2 | grep -i 'Set-Cookie:' 
+	
+	# delay
+	sleep $DELAY
+done

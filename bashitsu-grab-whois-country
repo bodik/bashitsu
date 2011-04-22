@@ -1,0 +1,3 @@
+#!/bin/bash
+# grabs country from whois record output piped to it
+grep -i 'country:' | sed -r -e 's/country: *//' | cut -c-2

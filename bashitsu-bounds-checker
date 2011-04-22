@@ -1,0 +1,14 @@
+#!/bin/bash
+# a simple tool to generate long strings
+# generate long strings. useful for testing out-of-bound attacks 
+
+if [[ $# -ne 2 ]]
+then
+	echo $0 '<string-or-single-char> <number_of_chars>'
+	exit 1
+fi
+
+for((i=0;i<$2;++i))
+do
+	echo -n $1
+done

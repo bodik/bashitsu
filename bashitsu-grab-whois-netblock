@@ -1,0 +1,3 @@
+#!/bin/bash
+# grabs IP netblocks from whois record output piped to it 
+grep -i -e "inetnum:" -e "NetRange:" -e "CIDR:" | cut -d':' -f2- | sed -r -e 's/^ *//' -e 's/ *$//'
