@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# http_session_timeout_tester
+# a script to help determine the idle session timeout period of a given webapp
+# requires 'curl', 'grep' and 'sleep' to work
+
+# Adrian 'pagvac' Pastor | http://gnucitizen.org
+
+if [[ $# -lt 3 ]]
+then
+
+echo "usage: $0 <cookie> <url> <string>"
+echo "i.e.: $0 \"SIDNAME=NGPNEHFDLJMAEIMMDPDDMEMP\" \"https://site.foo/home/Default.asp\" \"Welcome Thomas Anderson\"" 
+echo "note: <string> is meant to be returned by provided URL when the session is active"	
+exit 
+
+fi
+
+
+MINS=1
+# 5, 10, 15, 20, and on, up to 60 mins 
+for((i=0;i<=12;++i))
+do
+	MINS=$(($i * 5))
+	if curl -is --cookie "$1" --url "$2" | grep -i "$3" > /dev/null
+	then
+		echo "session stays active for at least $MINS minutes" 
+		echo "waiting for next check ..."
+	else
+		echo "session is INACTIVE!"
+		exit
+	fi
+
+	# 60 secs in a minute
+	SECS=$(($MINS * 60))
+	sleep $SECS
+done
