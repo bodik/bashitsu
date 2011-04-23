@@ -9,6 +9,8 @@ then
        	echo -en "i.e:\n$0 http://www.targethost.foo\n$0" \
 	"http://www.targethost.foo/home/default.aspx\n" 
 	exit 1
+else
+	type -P lynx &>/dev/null || { echo "lynx required but not installed.  Aborting." >&2; exit 1; }
 fi
 
 for i in `lynx -dump $1 | awk '{print $2}' | grep '^http'`
