@@ -1,0 +1,1 @@
+bashitsu is a collection of scripts created to help pentesters and security auditors automate a variety of tasks.
