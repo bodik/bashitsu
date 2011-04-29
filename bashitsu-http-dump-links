@@ -13,11 +13,12 @@ else
 	type -P lynx &>/dev/null || { echo "lynx required but not installed.  Aborting." >&2; exit 1; }
 fi
 
-for i in `lynx -dump $1 | awk '{print $2}' | grep '^http'`
+ua="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.3) Gecko/20070309 Firefox/2.0.0.3"
+for i in `lynx -dump -useragent="$ua" $1 | awk '{print $2}' | grep '^http'`
 do
 	echo $i
-	for j in `lynx -dump $i | awk '{print $2}' | grep '^http'`
+	for j in `lynx -dump -useragent="$ua" $i | awk '{print $2}' | grep '^http'`
 	do
 		echo $j
 	done
-done
+done 2>/dev/null | sort | uniq

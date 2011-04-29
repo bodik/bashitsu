@@ -1,3 +1,0 @@
-#!/bin/bash
-# parses URLs from output piped to it 
-grep -Eo "[a-zA-Z0-9]+://[a-zA-Z0-9_#&=+%,/\.\?-]+"
